@@ -45,7 +45,7 @@ class Subsequence(Generic[T_co], Sequence[T_co]):
         return self
 
     def __deepcopy__(self) -> Self:
-        return type(self)([deepcopy(element) for element in self], slice(None))
+        return type(self)(tuple(map(deepcopy, self)), slice(None))
 
     @overload
     def __getitem__(self, i: SupportsIndex, /) -> T_co:
