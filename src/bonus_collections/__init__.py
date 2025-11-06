@@ -83,8 +83,14 @@ class Subsequence(Generic[T_co], Sequence[T_co]):
             i: int = index(key)
             return self._source[self._range.start + self._range.step * i]
 
+    def __iter__(self) -> Iterator[T_co]:
+        for i in range(self._range.start, self._range.stop, self._range.step):
+            yield self._source[i]
+
     def __len__(self) -> int:
-        return (self._range.stop - self._range.start) // self._range.step
+        return (
+            self._range.stop - self._range.start + self._range.step - 1
+        ) // self._range.step
 
     def __repr__(self) -> str:
         return f"{type(self).__name__}({self._source!r}, {self._range!r})"
